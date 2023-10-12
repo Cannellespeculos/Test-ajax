@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form onsubmit="soumission(event)" action="">
+        <label for="nom">Nom :</label>
+        <input id="nom" type="text" name="nom" placeholder="Nom"/>
+        <label for="nom">Prenom :</label>
+        <input id="prenom" type="text" name="prenom" placeholder="Prenom"/>
+        <input type="submit">
+    </form>
+    <div id="resultat">
+    </div>
+</body>
+<script>
+    function soumission(event){
+        event.preventDefault();
+        nom = document.getElementById("nom").value;
+        prenom = document.getElementById("prenom").value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function(data) {
+            if (data.target.readyState==4 && data.target.status == 200) {
+                var code = data.target.response;
+                document.getElementById("resultat").innerHTML = code;
+            }
+        };
+        xhttp.open("GET", "http://localhost/Test-php/Test-ajax/bonjour1.php?nom="+nom+"&prenom="+prenom, true);
+        xhttp.send();
+    }
+</script>
+</html>
