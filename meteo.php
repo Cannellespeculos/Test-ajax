@@ -10,7 +10,7 @@
     <form action="meteo.php" method="GET" id="submit">
         <label for="city">Nom de la ville : </label>
         <input type="text" name="name" id="nom">
-        <input type="submit" value="Envoyer">
+        <input type="submit" id="submit" value="Envoyer">
     </form>
 
     <section id="section">
@@ -19,6 +19,17 @@
 
     <script>
         const submit =document.getElementById('submit')
+
+        function dateReverse(date) {
+            date = date.split('-')
+            let tabl = []
+            for (let index = date.length-1; index >= 0; index--) {
+                tabl.push(date[index])
+                
+            }
+
+            return tabl.join("/")
+        }
 
 
 
@@ -56,18 +67,18 @@
                                 console.log(day)
                                 section.innerHTML += `
                                 <article>
-                                    <p>${temp_min}C / ${temp_max}C</p>
+                                <p>min : ${temp_min}C / max : ${temp_max}C</p>
                                     <img src="https://openweathermap.org/img/wn/${icon.icon}.png">
-                                    <p>${day}</p>
+                                    <p>${dateReverse(day)}</p>
                                 </article>
                                 `
                             }else if (dateHour[0] !== day) {
                                 day = dateHour[0]
                                 section.innerHTML += `
                                 <article>
-                                    <p>${temp_min}C / ${temp_max}C</p>
+                                    <p>min : ${temp_min}C / max : ${temp_max}C</p>
                                     <img src="https://openweathermap.org/img/wn/${icon.icon}.png">
-                                    <p>${day}</p>
+                                    <p>${dateReverse(day)}</p>
                                 </article>
                                 `
                             }
@@ -82,7 +93,7 @@
                                 `
                      }
                 }
-                httpx.open( "GET",`https://api.openweathermap.org/data/2.5/forecast?q=${nom}&APPID=559284c2251585c1875907a25b6adf07&units=metric`, true)
+                httpx.open( "GET",`https://api.openweathermap.org/data/2.5/forecast?q=${nom}&APPID=559284c2251585c1875907a25b6adf07&units=metric&lang=fr`, true)
                 httpx.send()
             })
 
